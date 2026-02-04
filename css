@@ -1,0 +1,877 @@
+:root {
+    --black: #000000;
+    --white: #ffffff;
+    --gray-light: #f8f8f8;
+    --gray: #e8e8e8;
+    --gray-dark: #888888;
+    --gray-darker: #666666;
+    --accent: #000000;
+    --accent-light: #333333;
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    --shadow-heavy: 0 10px 40px rgba(0, 0, 0, 0.1);
+    --elegant-border: 1px solid rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    touch-action: pan-y;
+}
+
+.app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* === ОСНОВНАЯ НАВИГАЦИЯ - ВСЕГДА ВИДИМА === */
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 300;
+    background: var(--white);
+    padding: 24px 0 16px;
+    border-bottom: var(--elegant-border);
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.nav-dots {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 12px;
+}
+
+.nav-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--gray);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.nav-dot.active {
+    background: var(--black);
+    transform: scale(1.3);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.nav-labels {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    padding: 0 20px;
+}
+
+.nav-label {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--gray-dark);
+    cursor: pointer;
+    letter-spacing: 1.2px;
+    transition: var(--transition);
+    position: relative;
+    padding: 6px 0;
+    font-family: 'Unbounded', sans-serif;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.nav-label.active {
+    color: var(--black);
+    font-weight: 600;
+}
+
+/* === ОСНОВНОЙ КОНТЕНТ === */
+.main-content {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 70px; /* Высота основной навигации */
+}
+
+.card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: transform 0.4s ease, opacity 0.3s ease;
+    pointer-events: none;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px;
+    will-change: transform, opacity;
+}
+
+.card.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+    position: relative;
+}
+
+/* === ВНУТРЕННЯЯ НАВИГАЦИЯ - ВСЕГДА ВИДИМА === */
+.inner-nav-container {
+    position: fixed;
+    top: 70px; /* Основная навигация + отступ */
+    left: 0;
+    right: 0;
+    z-index: 290;
+    background: var(--white);
+    border-bottom: var(--elegant-border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 16px 20px;
+}
+
+.inner-nav {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 8px;
+    max-width: 480px;
+    margin: 0 auto;
+    border: var(--elegant-border);
+    box-shadow: var(--shadow);
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+/* Dropdown группы */
+.dropdown-group {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+/* Кнопки с выпадающим меню - УБРАЛИ ЛИНИИ */
+.inner-nav-btn {
+    padding: 16px 20px;
+    background: transparent;
+    border: none;
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gray-dark);
+    cursor: pointer;
+    transition: var(--transition);
+    letter-spacing: 1px;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+    white-space: nowrap;
+}
+
+.inner-nav-btn:hover {
+    color: var(--black);
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.inner-nav-btn:active {
+    transform: scale(0.98);
+}
+
+.inner-nav-btn.active {
+    color: var(--black);
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.dropdown-icon {
+    font-size: 11px;
+    transition: transform 0.3s ease;
+    margin-top: 1px;
+    flex-shrink: 0;
+}
+
+.dropdown-btn.active .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+.btn-text {
+    position: relative;
+    z-index: 2;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-family: 'Unbounded', sans-serif;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* Выпадающее меню */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    border: var(--elegant-border);
+    border-radius: 10px;
+    box-shadow: var(--shadow-heavy);
+    margin-top: 8px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: var(--transition);
+    max-height: 360px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-header {
+    padding: 16px;
+    border-bottom: var(--elegant-border);
+}
+
+.dropdown-search {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-search i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-dark);
+    font-size: 13px;
+}
+
+.dropdown-search input {
+    width: 100%;
+    padding: 10px 10px 10px 36px;
+    border: var(--elegant-border);
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    color: var(--black);
+    background: var(--white);
+    transition: var(--transition);
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+.dropdown-search input:focus {
+    outline: none;
+    border-color: var(--black);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-search input::placeholder {
+    color: var(--gray-dark);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+}
+
+.dropdown-list {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 280px;
+    padding: 6px 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.dropdown-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: var(--transition);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    color: var(--gray-darker);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.dropdown-item:hover {
+    background: rgba(0, 0, 0, 0.03);
+    color: var(--black);
+    padding-left: 20px;
+}
+
+.dropdown-item.selected {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--black);
+    font-weight: 600;
+}
+
+.dropdown-item.selected::after {
+    content: '✓';
+    font-size: 13px;
+    color: var(--black);
+    font-weight: 600;
+}
+
+.dropdown-item.all-option {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+/* Контейнер товаров */
+.products-container {
+    display: block;
+    animation: fadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+    padding: 20px;
+    margin-top: 70px; /* Высота внутренней навигации */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Сетка товаров - 3 товара в ряд на десктопе */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+/* Карточка товара */
+.product-card {
+    background: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: var(--elegant-border);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-heavy);
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* Контейнер изображения - УМЕНЬШЕН */
+.product-image-container {
+    position: relative;
+    width: 100%;
+    padding-top: 70%;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 100%);
+}
+
+.product-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.product-img {
+    max-width: 65%;
+    max-height: 65%;
+    object-fit: contain;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+}
+
+.product-card:hover .product-img {
+    transform: scale(1.05);
+}
+
+.product-content {
+    padding: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-brand {
+    font-size: 9px;
+    color: var(--gray-dark);
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    color: var(--black);
+}
+
+.product-description {
+    font-size: 12px;
+    color: var(--gray-darker);
+    line-height: 1.4;
+    margin-bottom: 14px;
+    flex: 1;
+    font-family: 'Inter', sans-serif;
+}
+
+.price-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: var(--elegant-border);
+}
+
+.price-range {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.price {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+}
+
+.price-from {
+    color: var(--gray-darker);
+    font-size: 14px;
+}
+
+.price-to {
+    color: var(--black);
+}
+
+/* Сообщение об отсутствии товаров */
+.no-products {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--gray-dark);
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.no-products p:first-child {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--gray-darker);
+}
+
+.no-products p:last-child {
+    font-size: 13px;
+    opacity: 0.8;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Оверлей для выпадающих меню на мобильных */
+.dropdown-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.dropdown-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Индикаторы свайпа */
+.swipe-indicator {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-heavy);
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.swipe-indicator.left {
+    left: 10px;
+}
+
+.swipe-indicator.right {
+    right: 10px;
+}
+
+.swipe-indicator.show {
+    opacity: 1;
+}
+
+.swipe-indicator i {
+    font-size: 14px;
+    color: var(--black);
+}
+
+/* === АДАПТИВНЫЕ ИСПРАВЛЕНИЯ === */
+
+/* Заголовки в выпадающих меню - скрываем на всех устройствах */
+.dropdown-header h3 {
+    display: none;
+}
+
+/* Уменьшаем отступ в заголовке выпадающего меню без h3 */
+.dropdown-header {
+    padding: 12px 16px;
+    padding-bottom: 12px;
+}
+
+/* Адаптивные выпадающие меню для мобильных */
+@media (max-width: 1000px) {
+    /* Увеличиваем внутреннюю навигацию */
+    .inner-nav-container {
+        padding: 15px;
+    }
+    
+    .inner-nav {
+        padding: 10px;
+        max-width: 100%;
+    }
+    
+    .inner-nav-btn {
+        font-size: 16px;
+        padding: 18px 24px;
+        letter-spacing: 1.2px;
+    }
+    
+    .btn-text {
+        font-size: 16px;
+    }
+    
+    .dropdown-icon {
+        font-size: 13px;
+    }
+    
+    /* Выпадающие меню на всю ширину с отступами */
+    .dropdown-menu {
+        position: fixed;
+        left: 20px;
+        right: 20px;
+        width: calc(100% - 40px);
+        max-height: 70vh;
+        top: 50%;
+        transform: translateY(-50%) translateY(-8px);
+        z-index: 1001;
+        margin-top: 0;
+    }
+    
+    .dropdown-menu.active {
+        transform: translateY(-50%);
+    }
+    
+    /* Улучшаем отображение поиска на мобильных */
+    .dropdown-search input {
+        font-size: 16px;
+        padding: 14px 14px 14px 42px;
+    }
+    
+    .dropdown-search i {
+        font-size: 16px;
+        left: 16px;
+    }
+    
+    /* Улучшаем элементы списка на мобильных */
+    .dropdown-item {
+        font-size: 16px;
+        padding: 14px 16px;
+    }
+    
+    /* Цены на мобильных - предотвращаем перенос валюты */
+    .price-range {
+        white-space: nowrap;
+    }
+    
+    .price {
+        font-size: 16px;
+    }
+    
+    .price-from, .price-to {
+        font-size: 16px;
+    }
+}
+
+/* Адаптивность - ПРОСТОЙ И ЕДИНЫЙ ПОДХОД */
+
+/* Десктоп (992px и выше) */
+@media (min-width: 992px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+    .nav-labels {
+        gap: 60px;
+    }
+    .nav-label {
+        font-size: 14px;
+    }
+    .inner-nav-container {
+        top: 70px;
+        padding: 10px 20px;
+    }
+    .products-container {
+        margin-top: 70px;
+    }
+}
+
+/* Планшеты (768px - 991px) */
+@media (max-width: 991px) and (min-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+    .nav-labels {
+        gap: 40px;
+    }
+    .nav-label {
+        font-size: 13px;
+    }
+    .main-nav {
+        padding: 12px 0 8px;
+    }
+    .inner-nav-container {
+        top: 65px;
+        padding: 8px 15px;
+    }
+    .products-container {
+        margin-top: 65px;
+        padding: 15px;
+    }
+    .inner-nav-btn {
+        padding: 12px 16px;
+        font-size: 12px;
+    }
+}
+
+/* Большие мобильные (576px - 767px) */
+@media (max-width: 767px) and (min-width: 576px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    .nav-labels {
+        gap: 30px;
+    }
+    .nav-label {
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+    .main-nav {
+        padding: 10px 0 6px;
+    }
+    .nav-dots {
+        gap: 30px;
+        margin-bottom: 5px;
+    }
+    .nav-dot {
+        width: 8px;
+        height: 8px;
+    }
+    .inner-nav-container {
+        top: 60px;
+        padding: 8px 12px;
+    }
+    .products-container {
+        margin-top: 60px;
+        padding: 15px;
+    }
+    .inner-nav {
+        padding: 6px;
+        gap: 6px;
+    }
+    .inner-nav-btn {
+        padding: 10px 14px;
+        font-size: 11px;
+    }
+    .product-image-container {
+        padding-top: 80%;
+    }
+}
+
+/* Мобильные (до 575px) */
+@media (max-width: 575px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    .nav-labels {
+        gap: 20px;
+    }
+    .nav-label {
+        font-size: 11px;
+        letter-spacing: 0.8px;
+        padding: 4px 0;
+    }
+    .main-nav {
+        padding: 8px 0 5px;
+    }
+    .nav-dots {
+        gap: 25px;
+        margin-bottom: 3px;
+    }
+    .nav-dot {
+        width: 7px;
+        height: 7px;
+    }
+    .nav-dot.active {
+        transform: scale(1.2);
+    }
+    .inner-nav-container {
+        top: 55px;
+        padding: 6px 10px;
+    }
+    .products-container {
+        margin-top: 55px;
+        padding: 12px;
+    }
+    .inner-nav {
+        padding: 5px;
+        gap: 5px;
+    }
+    .inner-nav-btn {
+        padding: 8px 12px;
+        font-size: 10px;
+    }
+    .product-image-container {
+        padding-top: 85%;
+    }
+    .product-content {
+        padding: 12px;
+    }
+    .product-name {
+        font-size: 16px;
+    }
+    
+    /* Выпадающие меню для маленьких экранов */
+    .dropdown-menu {
+        left: 15px;
+        right: 15px;
+        width: calc(100% - 30px);
+    }
+    
+    .dropdown-item {
+        font-size: 15px;
+        padding: 12px 16px;
+    }
+}
+
+/* Маленькие мобильные (до 400px) */
+@media (max-width: 400px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .nav-labels {
+        gap: 15px;
+    }
+    .nav-label {
+        font-size: 10px;
+    }
+    .inner-nav-container {
+        top: 50px;
+        padding: 5px 8px;
+    }
+    .products-container {
+        margin-top: 50px;
+        padding: 10px;
+    }
+    .inner-nav-btn {
+        padding: 7px 10px;
+        font-size: 9px;
+    }
+    .product-image-container {
+        padding-top: 90%;
+    }
+    
+    /* Выпадающие меню для очень маленьких экранов */
+    .dropdown-menu {
+        left: 10px;
+        right: 10px;
+        width: calc(100% - 20px);
+    }
+}
