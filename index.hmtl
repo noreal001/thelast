@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=Roboto+Mono:wght@300;400;500&family=Cormorant+Garamond:wght@400;500;600;700&family=Unbounded:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Основная навигация -->
+        <nav class="main-nav">
+            <div class="nav-dots">
+                <div class="nav-dot active" data-tab="scents"></div>
+                <div class="nav-dot" data-tab="bottles"></div>
+                <div class="nav-dot" data-tab="solution"></div>
+                <div class="nav-dot" data-tab="accessories"></div>
+            </div>
+            <div class="nav-labels">
+                <span class="nav-label active" data-tab="scents">АРОМАТЫ</span>
+                <span class="nav-label" data-tab="bottles">ФЛАКОНЫ</span>
+                <span class="nav-label" data-tab="solution">РАСТВОР</span>
+                <span class="nav-label" data-tab="accessories">АКСЕССУАРЫ</span>
+            </div>
+        </nav>
+
+        <!-- Основной контент -->
+        <div class="main-content">
+            <!-- Карточка Ароматы -->
+            <div class="card active" data-tab="scents">
+                <!-- Внутренняя навигация -->
+                <div class="inner-nav-container">
+                    <div class="inner-nav">
+                        <div class="dropdown-group">
+                            <button class="inner-nav-btn active dropdown-btn" data-inner="brands" data-dropdown="brands-dropdown">
+                                <span class="btn-text">БРЕНД</span>
+                                <i class="fas fa-chevron-down dropdown-icon"></i>
+                            </button>
+                            <div class="dropdown-menu" id="brands-dropdown">
+                                <div class="dropdown-header">
+                                    <div class="dropdown-search">
+                                        <i class="fas fa-search"></i>
+                                        <input type="text" placeholder="Поиск бренда..." id="brand-search">
+                                    </div>
+                                </div>
+                                <div class="dropdown-list" id="brands-list">
+                                    <!-- Бренды будут загружены через JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-group">
+                            <button class="inner-nav-btn dropdown-btn" data-inner="notes" data-dropdown="notes-dropdown">
+                                <span class="btn-text">НОТЫ</span>
+                                <i class="fas fa-chevron-down dropdown-icon"></i>
+                            </button>
+                            <div class="dropdown-menu" id="notes-dropdown">
+                                <div class="dropdown-header">
+                                    <div class="dropdown-search">
+                                        <i class="fas fa-search"></i>
+                                        <input type="text" placeholder="Поиск ноты..." id="note-search">
+                                    </div>
+                                </div>
+                                <div class="dropdown-list" id="notes-list">
+                                    <!-- Ноты будут загружены через JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Товары ароматов -->
+                <div class="products-container">
+                    <div class="products-grid" id="scents-grid">
+                        <!-- Все ароматы будут загружены через JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка Флаконы -->
+            <div class="card" data-tab="bottles">
+                <!-- Внутренняя навигация для флаконов -->
+                <div class="inner-nav-container">
+                    <div class="inner-nav">
+                        <div class="dropdown-group">
+                            <button class="inner-nav-btn active dropdown-btn" data-inner="volumes" data-dropdown="volumes-dropdown">
+                                <span class="btn-text">ОБЪЁМ</span>
+                                <i class="fas fa-chevron-down dropdown-icon"></i>
+                            </button>
+                            <div class="dropdown-menu" id="volumes-dropdown">
+                                <div class="dropdown-header">
+                                    <div class="dropdown-search">
+                                        <i class="fas fa-search"></i>
+                                        <input type="text" placeholder="Поиск объёма..." id="volume-search">
+                                    </div>
+                                </div>
+                                <div class="dropdown-list" id="volumes-list">
+                                    <!-- Объёмы будут загружены через JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Флаконы -->
+                <div class="products-container">
+                    <div class="products-grid" id="volumes-grid">
+                        <!-- Все флаконы будут загружены через JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка Раствор -->
+            <div class="card" data-tab="solution">
+                <div class="products-container">
+                    <div class="products-grid" id="solution-grid">
+                        <!-- Товары для раствора будут загружены через JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка Аксессуары -->
+            <div class="card" data-tab="accessories">
+                <div class="products-container">
+                    <div class="products-grid" id="accessories-grid">
+                        <!-- Аксессуары будут загружены через JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
